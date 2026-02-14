@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love ❤️</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ====== RESET & BASE STYLES ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Color Palette */
+            --bg-black: #0D0D0D;
+            --bg-dark: #1F1F1F;
+            --bg-medium: #3A3A3A;
+            --text-light: #D9D9D9;
+            --accent-silver: #BFBFBF;
+            --accent-gold: #D4AF37;
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-black);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ====== PARTICLES BACKGROUND ====== */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* ====== CONTAINER ====== */
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ====== SECTION STYLES ====== */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ====== OPENING SECTION ====== */
+        #opening {
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            opacity: 1;
+            transform: none;
+        }
+
+        .opening-content {
+            max-width: 800px;
+        }
+
+        .opening-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: 0.02em;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--text-light), var(--accent-silver));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .opening-subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-silver);
+            margin-bottom: var(--spacing-lg);
+            animation: fadeInUp 1.5s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        .btn-enter {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 1.2rem 3rem;
+            background: transparent;
+            border: 1px solid var(--accent-silver);
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            animation: fadeInUp 1.5s ease-out 1s forwards;
+            opacity: 0;
+        }
+
+        .btn-enter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-silver), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-enter:hover::before {
+            left: 100%;
+        }
+
+        .btn-enter:hover {
+            border-color: var(--text-light);
+            box-shadow: 0 0 20px rgba(191, 191, 191, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* ====== BIRTHDAY GREETING SECTION ====== */
+        #greeting {
+            background: linear-gradient(135deg, var(--bg-black) 0%, var(--bg-dark) 100%);
+        }
+
+        .greeting-content {
+            max-width: 900px;
+            text-align: center;
+            padding: var(--spacing-md);
+        }
+
+        .greeting-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-silver), var(--text-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .greeting-message {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: var(--spacing-md);
+            opacity: 0.95;
+        }
+
+        .heart-icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            animation: heartbeat 1.5s ease-in-out infinite;
+            display: inline-block;
+            margin-top: var(--spacing-sm);
+        }
+
+        /* ====== LOVE LETTER SECTION ====== */
+        #letter {
+            background: var(--bg-dark);
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .letter-container {
+            max-width: 700px;
+            position: relative;
+        }
+
+        .letter-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .letter-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 500;
+            font-style: italic;
+            letter-spacing: 0.02em;
+            color: var(--accent-silver);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .letter-decoration {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-silver), transparent);
+            margin: var(--spacing-md) auto;
+        }
+
+        .letter-card {
+            background: linear-gradient(135deg, rgba(31, 31, 31, 0.8), rgba(58, 58, 58, 0.4));
+            border: 1px solid rgba(191, 191, 191, 0.2);
+            padding: var(--spacing-lg);
+            border-radius: 2px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(191, 191, 191, 0.05), transparent 50%);
+            pointer-events: none;
+        }
+
+        .letter-greeting {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--accent-silver);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .letter-body {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 2;
+            color: var(--text-light);
+            margin-bottom: var(--spacing-md);
+            text-align: justify;
+        }
+
+        .letter-closing {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--accent-gold);
+            text-align: right;
+            margin-top: var(--spacing-lg);
+        }
+
+        .letter-signature {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--accent-silver);
+            text-align: right;
+            margin-top: var(--spacing-sm);
+        }
+
+        /* ====== GALLERY SECTION ====== */
+        #gallery {
+            background: var(--bg-black);
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .gallery-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 500;
+            text-align: center;
+            color: var(--accent-silver);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            aspect-ratio: 1;
+            border: 1px solid rgba(191, 191, 191, 0.2);
+            background: var(--bg-medium);
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-silver);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .gallery-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--accent-silver);
+            font-style: italic;
+        }
+
+        /* ====== FOOTER ====== */
+        footer {
+            padding: var(--spacing-lg) var(--spacing-md);
+            text-align: center;
+            background: var(--bg-dark);
+            border-top: 1px solid rgba(191, 191, 191, 0.1);
+        }
+
+        .footer-text {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--accent-silver);
+            opacity: 0.8;
+        }
+
+        .footer-heart {
+            color: var(--accent-gold);
+            animation: heartbeat 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        /* ====== ANIMATIONS ====== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* ====== RESPONSIVE DESIGN ====== */
+        @media (max-width: 768px) {
+            section {
+                padding: var(--spacing-sm);
+            }
+
+            .letter-card {
+                padding: var(--spacing-md);
+            }
+
+            .letter-body {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: var(--spacing-sm);
+            }
+        }
+
+        /* ====== MUSIC CONTROL ====== */
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background: rgba(31, 31, 31, 0.9);
+            border: 1px solid var(--accent-silver);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .music-control:hover {
+            background: rgba(58, 58, 58, 0.9);
+            box-shadow: 0 0 20px rgba(191, 191, 191, 0.3);
+            transform: scale(1.1);
+        }
+
+        .music-control svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent-silver);
+        }
+
+        /* ====== SCROLL INDICATOR ====== */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '↓';
+            font-size: 2rem;
+            color: var(--accent-silver);
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Music Control -->
+    <div class="music-control" id="musicControl" title="Toggle Music">
+        <svg id="playIcon" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg id="pauseIcon" viewBox="0 0 24 24" style="display: none;">
+            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+        </svg>
+    </div>
+
+    <!-- Background Music (Optional - add your music file) -->
+    <audio id="bgMusic" loop>
+        <!-- Uncomment and add your music file -->
+        <!-- <source src="your-music-file.mp3" type="audio/mpeg"> -->
+    </audio>
+
+    <div class="container">
+        <!-- ====== OPENING SECTION ====== -->
+        <section id="opening">
+            <div class="opening-content">
+                <h1 class="opening-title">Selamat Datang di Halaman Spesial Untuk Kamu</h1>
+                <p class="opening-subtitle">A Love Story Dedicated to You</p>
+                <button class="btn-enter" onclick="scrollToSection('greeting')">Klik Untuk Masuk</button>
+            </div>
+            <div class="scroll-indicator"></div>
+        </section>
+
+        <!-- ====== BIRTHDAY GREETING SECTION ====== -->
+        <section id="greeting">
+            <div class="greeting-content">
+                <h2 class="greeting-title">Happy Birthday<br>My Love</h2>
+                <p class="greeting-message">
+                    Selamat ulang tahun, sayang.<br>
+                    Terima kasih sudah hadir dalam hidupku dan membuat hariku lebih berarti.
+                </p>
+                <div class="heart-icon">❤️</div>
+            </div>
+        </section>
+
+        <!-- ====== LOVE LETTER SECTION ====== -->
+        <section id="letter">
+            <div class="letter-container">
+                <div class="letter-header">
+                    <h2 class="letter-title">Surat Cinta Untukmu</h2>
+                    <div class="letter-decoration"></div>
+                </div>
+                
+                <div class="letter-card">
+                    <p class="letter-greeting">Untuk kamu yang selalu ada di hatiku,</p>
+                    
+                    <p class="letter-body">
+                        Hari ini adalah hari spesial karena dunia menghadirkan kamu. 
+                        Aku bersyukur bisa mengenal, mencintai, dan berjalan bersama kamu sampai hari ini.
+                    </p>
+                    
+                    <p class="letter-body">
+                        Setiap momen bersamamu adalah kenangan berharga yang akan selalu aku simpan 
+                        di dalam hati. Kamu membuat hidupku lebih indah, lebih berarti, dan lebih berwarna.
+                    </p>
+                    
+                    <p class="letter-body">
+                        Semoga semua impian kamu tercapai. Aku akan selalu ada untuk kamu, 
+                        mendukungmu, dan mencintaimu dengan sepenuh hati.
+                    </p>
+                    
+                    <p class="letter-closing">Happy Birthday,</p>
+                    <p class="letter-signature">I Love You ❤️</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== GALLERY SECTION (OPTIONAL) ====== -->
+        <section id="gallery">
+            <div class="gallery-container">
+                <h2 class="gallery-title">Kenangan Bersama</h2>
+                <div class="gallery-grid">
+                    <!-- Placeholder untuk foto - ganti dengan foto kalian -->
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">Foto 1</div>
+                        <!-- <img src="path/to/photo1.jpg" alt="Kenangan 1"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">Foto 2</div>
+                        <!-- <img src="path/to/photo2.jpg" alt="Kenangan 2"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">Foto 3</div>
+                        <!-- <img src="path/to/photo3.jpg" alt="Kenangan 3"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">Foto 4</div>
+                        <!-- <img src="path/to/photo4.jpg" alt="Kenangan 4"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">Foto 5</div>
+                        <!-- <img src="path/to/photo5.jpg" alt="Kenangan 5"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">Foto 6</div>
+                        <!-- <img src="path/to/photo6.jpg" alt="Kenangan 6"> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== FOOTER ====== -->
+        <footer>
+            <p class="footer-text">Made with <span class="footer-heart">♥</span> Love</p>
+        </footer>
+    </div>
+
+    <!-- ====== JAVASCRIPT ====== -->
+    <script>
+        // ====== PARTICLES ANIMATION ======
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(191, 191, 191, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        // ====== RESIZE CANVAS ======
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // ====== SMOOTH SCROLL ======
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ====== SCROLL ANIMATION ======
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            if (section.id !== 'opening') {
+                observer.observe(section);
+            }
+        });
+
+        // ====== MUSIC CONTROL ======
+        const musicControl = document.getElementById('musicControl');
+        const bgMusic = document.getElementById('bgMusic');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        let isPlaying = false;
+
+        musicControl.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            } else {
+                bgMusic.play().catch(e => {
+                    console.log('Audio playback failed:', e);
+                });
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // ====== AUTO PLAY MUSIC (Optional) ======
+        // Uncomment untuk autoplay (beberapa browser memblokir autoplay)
+        // window.addEventListener('load', () => {
+        //     setTimeout(() => {
+        //         bgMusic.play().then(() => {
+        //             isPlaying = true;
+        //             playIcon.style.display = 'none';
+        //             pauseIcon.style.display = 'block';
+        //         }).catch(e => {
+        //             console.log('Autoplay prevented:', e);
+        //         });
+        //     }, 1000);
+        // });
+
+        // ====== LOADING ANIMATION ======
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
